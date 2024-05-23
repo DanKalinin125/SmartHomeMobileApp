@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Умный дом</string>
+
+    <string name="home_screen_title">Комнаты</string>
+    <string name="add_room_dialog_title">Новая комната</string>
+
+    <string name="home_screen">home_screen</string>
+
+    <string name="room_screen">room_screen/{id}</string>
+    <string name="room_screen_arg">{id}</string>
+
+    <string name="device_screen">device_screen/{id}</string>
+    <string name="device_screen_arg">{id}</string>
+
+</resources>
