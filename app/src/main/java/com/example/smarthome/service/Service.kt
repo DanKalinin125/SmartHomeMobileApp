@@ -9,7 +9,7 @@ import com.example.smarthome.model.devices.Light
 import com.example.smarthome.model.devices.TV
 
 class Service {
-    private var dataSource = DataSource()
+    private var dataSource = DataSource
 
     fun getAll(): MutableList<Room>{
         return dataSource.getAll();

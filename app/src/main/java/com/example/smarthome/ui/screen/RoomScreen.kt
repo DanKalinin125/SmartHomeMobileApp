@@ -1,5 +1,6 @@
 package com.example.smarthome.ui.screen
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -42,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -115,7 +117,7 @@ fun DeviceGrid(navController: NavController, room: MutableState<Room>, modifier:
     ) {
         item { AddDeviceButton(deviceList, room) }
         items(deviceList.toList()) { device ->
-            DeviceCard(navController, device)
+            DeviceCard(navController, room, device)
         }
     }
 }
@@ -280,26 +282,36 @@ fun DeviceTypeDropdownMenu(
 @Composable
 fun DeviceCard(
     navController: NavController,
+    room: MutableState<Room>,
     device: Device,
     modifier: Modifier = Modifier
 ) {
-//    val roomScreen = stringResource(R.string.room_screen)
-//    val roomScreenArg = stringResource(R.string.room_screen_arg)
+    val deviceScreen = stringResource(R.string.device_screen)
+    val deviceScreenRoom = stringResource(R.string.device_screen_room)
+    val deviceScreenDevice = stringResource(R.string.device_screen_device)
 
     Card(
         modifier = modifier
             .fillMaxWidth()
-//            .clickable(
-//                onClick = {
-//                    navController.navigate(
-//                        roomScreen
-//                            .replace(
-//                                oldValue = roomScreenArg,
-//                                newValue = room.id.toString()
-//                            )
-//                    )
-//                }
-//            )
+            .clickable(
+                onClick = {
+                    Log.d("room", room.value.toString())
+                    Log.d("devices", room.value.devices.toString())
+                    Log.d("deviceId", room.value.devices.indexOf(device).toString())
+
+                    navController.navigate(
+                        deviceScreen
+                            .replace(
+                                oldValue = deviceScreenRoom,
+                                newValue = room.value.id.toString()
+                            )
+                            .replace(
+                                oldValue = deviceScreenDevice,
+                                newValue = room.value.devices.indexOf(device).toString()
+                            )
+                    )
+                }
+            )
     ) {
         Column(
             modifier = modifier

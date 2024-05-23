@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.smarthome.R
+import com.example.smarthome.model.Device
 import com.example.smarthome.model.Room
 import com.example.smarthome.service.Service
 
@@ -36,22 +37,24 @@ fun DeviceScreen(navController: NavController, roomId: String, deviceId: String)
         color = MaterialTheme.colorScheme.background
     ) {
         val room = remember { mutableStateOf(service.getCurrent(roomId.toInt())) }
+        val device = room.value.devices[deviceId.toInt()]
 
         DeviceScreenContent(
             navController = navController,
             room = room,
+            device = device,
             modifier = Modifier.padding(dimensionResource(R.dimen.padding_small))
         )
     }
 }
 
 @Composable
-fun DeviceScreenContent(navController: NavController, room: MutableState<Room>, modifier: Modifier = Modifier) {
+fun DeviceScreenContent(navController: NavController, room: MutableState<Room>, device: Device, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
     ) {
-        DeviceScreenTitle(room.value.name)
+        DeviceScreenTitle(device.name)
     }
 }
 

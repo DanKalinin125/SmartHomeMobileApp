@@ -9,7 +9,8 @@
     <string name="room_screen">room_screen/{id}</string>
     <string name="room_screen_arg">{id}</string>
 
-    <string name="device_screen">device_screen/{id}</string>
-    <string name="device_screen_arg">{id}</string>
+    <string name="device_screen">device_screen/{roomid}/{deviceid}</string>
+    <string name="device_screen_room">{roomid}</string>
+    <string name="device_screen_device">{deviceid}</string>
 
 </resources>
