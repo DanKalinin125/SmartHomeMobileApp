@@ -4,9 +4,12 @@ import com.example.smarthome.data.DataSource
 import com.example.smarthome.model.Device
 import com.example.smarthome.model.enums.DeviceType
 import com.example.smarthome.model.Room
+import com.example.smarthome.model.devices.AirConditioner
+import com.example.smarthome.model.devices.CoffeeMachine
 import com.example.smarthome.model.enums.RoomType
 import com.example.smarthome.model.devices.Light
 import com.example.smarthome.model.devices.TV
+import com.example.smarthome.model.devices.Thermometer
 
 class Service {
     private var dataSource = DataSource
@@ -23,9 +26,7 @@ class Service {
         dataSource.save(
             Room(
                 roomName,
-                RoomType.toImageResourceId(
-                    RoomType.toRoomType(roomTypeName)
-                )
+                RoomType.toRoomType(roomTypeName)
             )
         )
     }
@@ -37,11 +38,21 @@ class Service {
             when(deviceType){
                 DeviceType.LIGHT -> Light(deviceName).toDevice()
                 DeviceType.TV -> TV(deviceName).toDevice()
-                else -> Light(deviceName).toDevice()
+                DeviceType.COFFEE_MACHINE -> CoffeeMachine(deviceName).toDevice()
+                DeviceType.AIR_CONDITIONER -> AirConditioner(deviceName).toDevice()
+                DeviceType.THERMOMETER -> Thermometer(deviceName).toDevice()
             }
 
         val roomDevices = room.devices
         roomDevices.add(device)
+        room.devices = roomDevices
+
+        dataSource.save(room)
+    }
+
+    fun updateDevice(room: Room, deviceId: Int, updatedDevice: Device){
+        val roomDevices = room.devices
+        roomDevices[deviceId] = updatedDevice
         room.devices = roomDevices
 
         dataSource.save(room)

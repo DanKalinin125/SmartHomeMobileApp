@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="padding_large">32dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
     <dimen name="padding_small">8dp</dimen>
     <dimen name="image_size">68dp</dimen>
+    <dimen name="image_big_size">200dp</dimen>
     <dimen name="plus_button_fontsize">30sp</dimen>
 </resources>

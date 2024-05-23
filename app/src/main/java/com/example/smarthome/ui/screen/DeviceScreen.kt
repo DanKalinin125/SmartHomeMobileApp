@@ -18,12 +18,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.smarthome.R
 import com.example.smarthome.model.Device
 import com.example.smarthome.model.Room
+import com.example.smarthome.model.enums.DeviceType
 import com.example.smarthome.service.Service
+import com.example.smarthome.ui.devices.AirConditionerComponent
+import com.example.smarthome.ui.devices.CoffeeMachineComponent
+import com.example.smarthome.ui.devices.LightComponent
+import com.example.smarthome.ui.devices.TVComponent
+import com.example.smarthome.ui.devices.ThermometerComponent
+import com.example.smarthome.ui.theme.SmartHomeTheme
 
 private val plusButtonFontSize = 50.sp
 private var service = Service()
@@ -51,10 +60,11 @@ fun DeviceScreen(navController: NavController, roomId: String, deviceId: String)
 @Composable
 fun DeviceScreenContent(navController: NavController, room: MutableState<Room>, device: Device, modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
     ) {
         DeviceScreenTitle(device.name)
+        DeviceComponent(room, device)
     }
 }
 
@@ -69,5 +79,33 @@ fun DeviceScreenTitle(roomName: String, modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Medium,
             style = MaterialTheme.typography.headlineLarge,
         )
+    }
+}
+
+@Composable
+fun DeviceComponent(room: MutableState<Room>, device: Device, modifier: Modifier = Modifier) {
+    when(device.deviceType){
+        DeviceType.LIGHT -> LightComponent(room, device)
+        DeviceType.TV -> TVComponent(room, device)
+        DeviceType.AIR_CONDITIONER -> AirConditionerComponent(room, device)
+        DeviceType.COFFEE_MACHINE -> CoffeeMachineComponent(room, device)
+        DeviceType.THERMOMETER -> ThermometerComponent(room, device)
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun DevicePreview() {
+    SmartHomeTheme {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            val navController = rememberNavController()
+            DeviceScreen(navController, roomId = "0", deviceId = "2")
+        }
     }
 }

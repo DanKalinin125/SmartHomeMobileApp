@@ -22,5 +22,13 @@ enum class CoffeeType {
                 else -> throw NoSuchElementException("Нет такого типа датчика")
             }
         }
+
+        fun toString(type: CoffeeType): String{
+            return when(type){
+                ESPRESSO -> "Эспрессо"
+                CAPPUCCINO -> "Капучино"
+                LATTE -> "Латте"
+            }
+        }
     }
 }

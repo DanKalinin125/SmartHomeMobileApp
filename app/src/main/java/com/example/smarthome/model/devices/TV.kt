@@ -7,12 +7,6 @@ import com.google.gson.Gson
 class TV( var deviceName: String)
     : Device( deviceName, DeviceType.TV) {
 
-    var status: Boolean = false //Включен или выключен
-
-    constructor(_name: String, _status: Boolean) : this(_name){
-        status = _status
-    }
-
     fun toDevice(): Device {
         return Device(deviceName, DeviceType.TV, Gson().toJson(this))
     }
