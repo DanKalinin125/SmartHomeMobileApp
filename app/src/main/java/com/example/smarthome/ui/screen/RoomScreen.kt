@@ -295,10 +295,6 @@ fun DeviceCard(
             .fillMaxWidth()
             .clickable(
                 onClick = {
-                    Log.d("room", room.value.toString())
-                    Log.d("devices", room.value.devices.toString())
-                    Log.d("deviceId", room.value.devices.indexOf(device).toString())
-
                     navController.navigate(
                         deviceScreen
                             .replace(
