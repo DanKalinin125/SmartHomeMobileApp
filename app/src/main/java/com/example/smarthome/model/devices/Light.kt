@@ -1,16 +1,15 @@
 package com.example.smarthome.model.devices
 
 import com.example.smarthome.model.Device
-import com.example.smarthome.model.DeviceType
+import com.example.smarthome.model.enums.DeviceType
 import com.google.gson.Gson
 
 
-class Light( var deviceName: String)
-    : Device( deviceName, DeviceType.LIGHT) {
+class Light(var deviceName: String) : Device(deviceName, DeviceType.LIGHT) {
 
     var status: Boolean = false
 
-    constructor(_name: String, _status: Boolean) : this(_name){
+    constructor(_name: String, _status: Boolean) : this(_name) {
         status = _status
     }
 
@@ -19,7 +18,7 @@ class Light( var deviceName: String)
     }
 
     companion object {
-        fun toLight(device: Device): Light{
+        fun toLight(device: Device): Light {
             return Gson().fromJson(device.jsonSerializedObject, Light::class.java)
         }
     }

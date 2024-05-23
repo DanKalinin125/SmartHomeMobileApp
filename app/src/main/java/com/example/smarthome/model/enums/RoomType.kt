@@ -1,4 +1,4 @@
-package com.example.smarthome.model
+package com.example.smarthome.model.enums
 
 import com.example.smarthome.R
 
@@ -16,7 +16,7 @@ enum class RoomType {
             "Кабинет"
         )
 
-        fun toRoomType(typeName: String): RoomType{
+        fun toRoomType(typeName: String): RoomType {
             when(typeName){
                 "Кухня" -> return KITCHEN
                 "Зал" -> return LIVING_ROOM

@@ -1,4 +1,4 @@
-package com.example.smarthome.model
+package com.example.smarthome.model.enums
 
 import com.example.smarthome.R
 
@@ -18,7 +18,7 @@ enum class DeviceType {
             "Термометр"
         )
 
-        fun toDeviceType(typeName: String): DeviceType{
+        fun toDeviceType(typeName: String): DeviceType {
             when(typeName){
                 "Свет" -> return LIGHT
                 "Телевизор" -> return TV

@@ -1,7 +1,7 @@
 package com.example.smarthome.model.devices
 
 import com.example.smarthome.model.Device
-import com.example.smarthome.model.DeviceType
+import com.example.smarthome.model.enums.DeviceType
 import com.google.gson.Gson
 
 class TV( var deviceName: String)

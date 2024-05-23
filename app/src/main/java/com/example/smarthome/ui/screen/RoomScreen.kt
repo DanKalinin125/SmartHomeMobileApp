@@ -1,6 +1,5 @@
 package com.example.smarthome.ui.screen
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -52,7 +51,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.smarthome.R
 import com.example.smarthome.model.Device
-import com.example.smarthome.model.DeviceType
+import com.example.smarthome.model.enums.DeviceType
 import com.example.smarthome.model.Room
 import com.example.smarthome.service.Service
 import com.example.smarthome.ui.theme.SmartHomeTheme
@@ -319,7 +318,7 @@ fun DeviceCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = device.imageResourceId),
+                painter = painterResource(id = DeviceType.toImageResourceId(device.deviceType)),
                 contentDescription = null,
                 modifier = modifier
                     .size(

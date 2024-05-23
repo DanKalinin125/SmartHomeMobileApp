@@ -8,15 +8,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.smarthome.model.Device
-import com.example.smarthome.model.DeviceType
-import com.example.smarthome.model.devices.Light
 import com.example.smarthome.ui.screen.DeviceScreen
 import com.example.smarthome.ui.screen.HomeScreen
 import com.example.smarthome.ui.screen.RoomScreen
 import com.example.smarthome.ui.theme.SmartHomeTheme
-import com.google.gson.Gson
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

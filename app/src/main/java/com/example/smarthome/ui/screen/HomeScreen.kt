@@ -51,7 +51,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.smarthome.R
 import com.example.smarthome.model.Room
-import com.example.smarthome.model.RoomType
+import com.example.smarthome.model.enums.RoomType
 import com.example.smarthome.service.Service
 import com.example.smarthome.ui.theme.SmartHomeTheme
 import com.example.smarthome.utils.swapList
@@ -305,7 +305,7 @@ fun RoomCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = room.imageResourceId),
+                painter = painterResource(id = RoomType.toImageResourceId(room.roomType)),
                 contentDescription = null,
                 modifier = modifier
                     .size(

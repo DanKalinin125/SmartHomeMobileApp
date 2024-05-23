@@ -2,9 +2,9 @@ package com.example.smarthome.service
 
 import com.example.smarthome.data.DataSource
 import com.example.smarthome.model.Device
-import com.example.smarthome.model.DeviceType
+import com.example.smarthome.model.enums.DeviceType
 import com.example.smarthome.model.Room
-import com.example.smarthome.model.RoomType
+import com.example.smarthome.model.enums.RoomType
 import com.example.smarthome.model.devices.Light
 import com.example.smarthome.model.devices.TV
 
