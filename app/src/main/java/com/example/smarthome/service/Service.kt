@@ -31,6 +31,10 @@ class Service {
         )
     }
 
+    fun deleteRoom(room: Room){
+        dataSource.delete(room)
+    }
+
     fun createDevice(deviceTypeName: String, deviceName: String, room: Room){
         val deviceType = DeviceType.toDeviceType(deviceTypeName)
 
@@ -53,6 +57,14 @@ class Service {
     fun updateDevice(room: Room, deviceId: Int, updatedDevice: Device){
         val roomDevices = room.devices
         roomDevices[deviceId] = updatedDevice
+        room.devices = roomDevices
+
+        dataSource.save(room)
+    }
+
+    fun deleteDevice(room: Room, deviceId: Int){
+        val roomDevices = room.devices
+        roomDevices.removeAt(deviceId)
         room.devices = roomDevices
 
         dataSource.save(room)

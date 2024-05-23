@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.AlertDialog
@@ -116,7 +118,7 @@ fun DeviceGrid(navController: NavController, room: MutableState<Room>, modifier:
     ) {
         item { AddDeviceButton(deviceList, room) }
         items(deviceList.toList()) { device ->
-            DeviceCard(navController, room, device)
+            DeviceCard(navController, deviceList, room, device)
         }
     }
 }
@@ -281,6 +283,7 @@ fun DeviceTypeDropdownMenu(
 @Composable
 fun DeviceCard(
     navController: NavController,
+    deviceList: SnapshotStateList<Device>,
     room: MutableState<Room>,
     device: Device,
     modifier: Modifier = Modifier
@@ -317,17 +320,36 @@ fun DeviceCard(
                 ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = DeviceType.toImageResourceId(device.deviceType)),
-                contentDescription = null,
-                modifier = modifier
-                    .size(
-                        width = dimensionResource(R.dimen.image_size),
-                        height = dimensionResource(R.dimen.image_size)
+            Box(
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        Icons.Filled.Delete,
+                        contentDescription = "Удалить устройство",
+                        modifier.clickable(onClick = {
+                            service.deleteDevice(room.value, room.value.devices.indexOf(device))
+                            room.value = service.getCurrent(room.value.id)
+                            deviceList.swapList(room.value.devices)
+                        })
                     )
-                    .aspectRatio(1f),
-                contentScale = ContentScale.Crop
-            )
+                }
+
+                Image(
+                    painter = painterResource(id = DeviceType.toImageResourceId(device.deviceType)),
+                    contentDescription = null,
+                    modifier = modifier
+                        .size(
+                            width = dimensionResource(R.dimen.image_size),
+                            height = dimensionResource(R.dimen.image_size)
+                        )
+                        .aspectRatio(1f),
+                    contentScale = ContentScale.Crop
+                )
+            }
 
             Column(
                 modifier = modifier.fillMaxWidth(),

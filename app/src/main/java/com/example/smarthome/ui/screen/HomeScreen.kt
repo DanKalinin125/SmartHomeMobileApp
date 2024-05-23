@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.AlertDialog
@@ -112,7 +114,7 @@ fun RoomGrid(navController: NavController, modifier: Modifier = Modifier) {
     ) {
         item { AddRoomButton(roomList) }
         items(roomList.toList()) { room ->
-            RoomCard(navController, room)
+            RoomCard(navController, room, roomList)
         }
     }
 }
@@ -275,6 +277,7 @@ fun RoomTypeDropdownMenu(
 fun RoomCard(
     navController: NavController,
     room: Room,
+    roomList: SnapshotStateList<Room>,
     modifier: Modifier = Modifier
 ) {
     val roomScreen = stringResource(R.string.room_screen)
@@ -304,17 +307,35 @@ fun RoomCard(
                 ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = RoomType.toImageResourceId(room.roomType)),
-                contentDescription = null,
-                modifier = modifier
-                    .size(
-                        width = dimensionResource(R.dimen.image_size),
-                        height = dimensionResource(R.dimen.image_size)
+            Box(
+                contentAlignment = Alignment.TopCenter
+            ){
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ){
+                    Icon(
+                        Icons.Filled.Delete,
+                        contentDescription = "Удалить комнату",
+                        modifier.clickable(onClick = {
+                            service.deleteRoom(room)
+                            roomList.swapList(service.getAll())
+                        })
                     )
-                    .aspectRatio(1f),
-                contentScale = ContentScale.Crop
-            )
+                }
+                Image(
+                    painter = painterResource(id = RoomType.toImageResourceId(room.roomType)),
+                    contentDescription = null,
+                    modifier = modifier
+                        .size(
+                            width = dimensionResource(R.dimen.image_size),
+                            height = dimensionResource(R.dimen.image_size)
+                        )
+                        .aspectRatio(1f),
+                    contentScale = ContentScale.Crop
+                )
+            }
+
 
             Column(
                 modifier = modifier.fillMaxWidth(),

@@ -60,6 +60,20 @@ class DataSource {
             return room
         }
 
+        fun delete(room: Room){
+            var roomInListId: Int? = null
+
+            for (i in 0..<rooms.size) {
+                if (rooms[i].id == room.id) {
+                    roomInListId = i
+                }
+            }
+
+            if (roomInListId != null) {
+                rooms.removeAt(roomInListId)
+            }
+        }
+
         private fun calcNewId(): Int {
             var maxId = -1
             for (room in rooms) {
